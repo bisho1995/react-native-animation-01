@@ -38,11 +38,10 @@ export default class Profiles extends React.PureComponent {
     });
     return <Card {...item} style={{ transform: [{ scale }], opacity }} />;
   };
-  handleScroll = (e) => {
-    Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }])(
-      e
-    );
-  };
+  handleScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
+    { useNativeDriver: true }
+  );
   render() {
     return (
       <SafeAreaProvider mode='margin'>
@@ -68,6 +67,8 @@ export default class Profiles extends React.PureComponent {
             data={data}
             renderItem={this.profileRenderer}
             keyExtractor={(item) => item.key}
+            bounces={false}
+            scrollEventThrottle={16}
           ></Animated.FlatList>
         </ImageBackground>
       </SafeAreaProvider>
